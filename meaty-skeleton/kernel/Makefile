@@ -2,7 +2,7 @@ DEFAULT_HOST!=../default-host.sh
 HOST?=DEFAULT_HOST
 HOSTARCH!=../target-triplet-to-arch.sh $(HOST)
 
-CFLAGS?=-O2 -g
+CFLAGS?=-O2 -g -fstack-protector-all
 CPPFLAGS?=
 LDFLAGS?=
 LIBS?=
@@ -30,6 +30,11 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
+kernel/gdt.o \
+kernel/gdt_load.o \
+kernel/stack_protection.o\
+kernel/memory.o\
+
 
 OBJS=\
 $(ARCHDIR)/crti.o \
